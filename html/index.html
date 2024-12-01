@@ -24,6 +24,24 @@
             <option value="200">200 números</option>
         </select>
         <button onclick="sortList()">Rodar Ordenação</button>
+        <button onclick="clearList()">Limpar Lista</button>
+    </div>
+
+    <div class="number-list" id="numberList"></div>
+
+    <div class="carousel">
+        <div class="carousel-container" id="carouselContainer">
+            <div class="carousel-item" id="bubbleSortResult"></div>
+            <div class="carousel-item" id="selectionSortResult"></div>
+            <div class="carousel-item" id="mergeSortResult"></div>
+            <div class="carousel-item" id="quickSortResult"></div>
+            <div class="carousel-item" id="shellSortResult"></div>
+        </div>
+
+        <div class="carousel-buttons">
+            <button onclick="prev()">&#8249;</button>
+            <button onclick="next()">&#8250;</button>
+        </div>
     </div>
 
     <div class="number-list" id="numberList"></div>

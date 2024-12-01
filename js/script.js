@@ -1,6 +1,7 @@
-const baseList = Array.from({ length: 200 }, (_, i) => i + 1); // Lista com números de 1 a 200
 const numbers = [];
-const resultDiv = document.getElementById('result');
+const baseList = Array.from({ length: 200 }, (_, i) => i + 1);
+const carouselContainer = document.getElementById('carouselContainer');
+let currentSlide = 0;
 
 function addNumber() {
     const input = document.getElementById('numberInput');
@@ -18,9 +19,9 @@ function generateRandomList() {
     const select = document.getElementById('presetList');
     const size = parseInt(select.value);
     if (!isNaN(size)) {
-        numbers.length = 0; // Limpa a lista atual
-        const shuffled = [...baseList].sort(() => Math.random() - 0.5); // Embaralha os números
-        numbers.push(...shuffled.slice(0, size)); // Adiciona 'size' números aleatórios
+        numbers.length = 0;
+        const shuffled = [...baseList].sort(() => Math.random() - 0.5);
+        numbers.push(...shuffled.slice(0, size));
         displayNumbers();
     }
 }
@@ -30,7 +31,12 @@ function displayNumbers() {
     numberList.innerHTML = numbers.map(num => `<div class="number">${num}</div>`).join('');
 }
 
-// Algoritmos
+function clearList() {
+    numbers.length = 0; // Limpa o array de números
+    displayNumbers(); // Atualiza a exibição da lista
+    alert('Lista limpa com sucesso!');
+}
+
 function bubbleSort(arr) {
     const sorted = [...arr];
     for (let i = 0; i < sorted.length; i++) {
@@ -85,20 +91,6 @@ function quickSort(arr) {
     return [...quickSort(left), pivot, ...quickSort(right)];
 }
 
-function insertionSort(arr) {
-    const sorted = [...arr];
-    for (let i = 1; i < sorted.length; i++) {
-        let key = sorted[i];
-        let j = i - 1;
-        while (j >= 0 && sorted[j] > key) {
-            sorted[j + 1] = sorted[j];
-            j--;
-        }
-        sorted[j + 1] = key;
-    }
-    return sorted;
-}
-
 function shellSort(arr) {
     const sorted = [...arr];
     let gap = Math.floor(sorted.length / 2);
@@ -116,17 +108,13 @@ function shellSort(arr) {
     return sorted;
 }
 
-// Exibir resultados com código
 function sortList() {
-    resultDiv.innerHTML = '';
     const algorithms = [
-        { name: 'Bubble Sort (O(n²))', func: bubbleSort, code: bubbleSort.toString() },
-        { name: 'Selection Sort (O(n²))', func: selectionSort, code: selectionSort.toString() },
-        { name: 'Merge Sort (O(n log n))', func: mergeSort, code: mergeSort.toString() },
-        { name: 'Quick Sort (O(n log n))', func: quickSort, code: quickSort.toString() },
-        { name: 'Insertion Sort (O(n²))', func: insertionSort, code: insertionSort.toString() },
-        { name: 'Shell Sort (O(n²))', func: shellSort, code: shellSort.toString() },
-
+        { name: 'Bubble Sort', func: bubbleSort, target: 'bubbleSortResult' },
+        { name: 'Selection Sort', func: selectionSort, target: 'selectionSortResult' },
+        { name: 'Merge Sort', func: mergeSort, target: 'mergeSortResult' },
+        { name: 'Quick Sort', func: quickSort, target: 'quickSortResult' },
+        { name: 'Shell Sort', func: shellSort, target: 'shellSortResult' },
     ];
 
     algorithms.forEach(algo => {
@@ -134,14 +122,30 @@ function sortList() {
         const sorted = algo.func(numbers);
         const end = performance.now();
 
-        const algoDiv = document.createElement('div');
-        algoDiv.className = 'algorithm';
-        algoDiv.innerHTML = `
+        const targetDiv = document.getElementById(algo.target);
+        targetDiv.innerHTML = `
             <h3>${algo.name}</h3>
             <div class="sorted-list">${sorted.join(', ')}</div>
-            <div class="time">Time: ${((end - start)*1000).toFixed(2)} µs</div>
-            <div class="code"><strong>Code:</strong><pre>${algo.code}</pre></div>
+            <div class="time">Time: ${((end - start) * 1000).toFixed(2)} µs</div>
+            <pre>${algo.func.toString()}</pre>
         `;
-        resultDiv.appendChild(algoDiv);
     });
+}
+
+function updateCarousel() {
+    carouselContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+function prev() {
+    if (currentSlide > 0) {
+        currentSlide--;
+        updateCarousel();
+    }
+}
+
+function next() {
+    if (currentSlide < carouselContainer.children.length - 1) {
+        currentSlide++;
+        updateCarousel();
+    }
 }
