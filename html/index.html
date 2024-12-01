@@ -3,9 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Big-O Analysis</title>
+    
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    
+    <div class="interaction">
+        <h1>Ordenação e Análise de Big-O</h1>
+        <input type="number" id="numberInput" placeholder="Insira um número" min="0">
+        <button onclick="addNumber()">Adicionar</button>
+        <br><br>
+        <label for="presetList">Lista pré-definida:</label>
+        <select id="presetList" onchange="generateRandomList()">
+            <option value="">-- Escolha o tamanho da lista --</option>
+            <option value="10">10 números</option>
+            <option value="20">20 números</option>
+            <option value="50">50 números</option>
+            <option value="100">100 números</option>
+            <option value="150">150 números</option>
+            <option value="200">200 números</option>
+        </select>
+        <button onclick="sortList()">Rodar Ordenação</button>
+    </div>
+
+    <div class="number-list" id="numberList"></div>
+
+    <div class="result" id="result"></div>
+
+    <script src="/js/script.js"> </script>
 </body>
 </html>
