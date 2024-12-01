@@ -10,21 +10,26 @@
 <body>
     <div class="interaction">
         <h1>Ordenação e Análise de Big-O</h1>
-        <input type="number" id="numberInput" placeholder="Insira um número" min="0">
-        <button onclick="addNumber()">Adicionar</button>
-        <br><br>
-        <label for="presetList">Lista pré-definida:</label>
-        <select id="presetList" onchange="generateRandomList()">
-            <option value="">-- Escolha o tamanho da lista --</option>
-            <option value="10">10 números</option>
-            <option value="20">20 números</option>
-            <option value="50">50 números</option>
-            <option value="100">100 números</option>
-            <option value="150">150 números</option>
-            <option value="200">200 números</option>
-        </select>
-        <button onclick="sortList()">Rodar Ordenação</button>
-        <button onclick="clearList()">Limpar Lista</button>
+        <p id="explicacao">Vamos fazer a comparação entre diferentes algoritmos de ordenação, cada um representando uma complexidade que será analisada de acordo com o tempo de execução. Todos eles tem um mesmo objetivo: Rearranjar os números de uma lista para que fiquem em ordem do menor para o maior.</p>
+        <div class="interaction-options">
+            <label for="presetList">Lista pré-definida:</label>
+            <select id="presetList" onchange="generateRandomList()">
+                <option value="">-- Escolha o tamanho da lista --</option>
+                <option value="10">10 números</option>
+                <option value="20">20 números</option>
+                <option value="50">50 números</option>
+                <option value="100">100 números</option>
+                <option value="150">150 números</option>
+                <option value="200">200 números</option>
+            </select>
+        </div>
+        <div class="interaction-options">
+            <label for="numberInput">Inserir manualmente:</label>
+            <input type="number" id="numberInput" placeholder="Digite um número" min="0">
+            <a onclick="addNumber()" id="" href="#"><span>&#8250;</span></a>
+        </div>
+        <a onclick="sortList()" href="#" class="btn btn-swipe-left btn-swipe-left--blue"><span>Rodar Ordenação</span></a>
+        <!-- <button onclick="clearList()">Limpar Lista</button> -->
     </div>
 
     <div class="number-list" id="numberList"></div>
