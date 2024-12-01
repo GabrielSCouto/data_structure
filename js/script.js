@@ -99,6 +99,23 @@ function insertionSort(arr) {
     return sorted;
 }
 
+function shellSort(arr) {
+    const sorted = [...arr];
+    let gap = Math.floor(sorted.length / 2);
+    while (gap > 0) {
+        for (let i = gap; i < sorted.length; i++) {
+            const temp = sorted[i];
+            let j;
+            for (j = i; j >= gap && sorted[j - gap] > temp; j -= gap) {
+                sorted[j] = sorted[j - gap];
+            }
+            sorted[j] = temp;
+        }
+        gap = Math.floor(gap / 2);
+    }
+    return sorted;
+}
+
 // Exibir resultados com código
 function sortList() {
     resultDiv.innerHTML = '';
@@ -108,6 +125,8 @@ function sortList() {
         { name: 'Merge Sort (O(n log n))', func: mergeSort, code: mergeSort.toString() },
         { name: 'Quick Sort (O(n log n))', func: quickSort, code: quickSort.toString() },
         { name: 'Insertion Sort (O(n²))', func: insertionSort, code: insertionSort.toString() },
+        { name: 'Shell Sort (O(n²))', func: shellSort, code: shellSort.toString() },
+
     ];
 
     algorithms.forEach(algo => {
@@ -120,7 +139,7 @@ function sortList() {
         algoDiv.innerHTML = `
             <h3>${algo.name}</h3>
             <div class="sorted-list">${sorted.join(', ')}</div>
-            <div class="time">Time: ${(end - start).toFixed(2)} ms</div>
+            <div class="time">Time: ${((end - start)*1000).toFixed(2)} µs</div>
             <div class="code"><strong>Code:</strong><pre>${algo.code}</pre></div>
         `;
         resultDiv.appendChild(algoDiv);
