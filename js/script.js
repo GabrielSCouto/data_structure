@@ -34,7 +34,6 @@ function displayNumbers() {
 function clearList() {
     numbers.length = 0; // Limpa o array de números
     displayNumbers(); // Atualiza a exibição da lista
-    alert('Lista limpa com sucesso!');
 }
 
 function bubbleSort(arr) {
@@ -124,10 +123,11 @@ function sortList() {
 
         const targetDiv = document.getElementById(algo.target);
         targetDiv.innerHTML = `
-            <h3>${algo.name}</h3>
+            <h2>${algo.name}</h2>
+            <br>
             <div class="sorted-list">${sorted.join(', ')}</div>
-            <div class="time">Time: ${((end - start) * 1000).toFixed(2)} µs</div>
-            <pre>${algo.func.toString()}</pre>
+            <div class="time">Tempo: ${((end - start) * 1000).toFixed(2)} µs</div>
+            <pre class="code">${algo.func.toString()}</pre>
         `;
     });
 }
