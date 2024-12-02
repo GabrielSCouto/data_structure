@@ -14,4 +14,4 @@
 2. Abra a pasta clonada com o **VS Code** ou IDE de preferência
 3. Rode o código em servidor local e interaja livremente
 
-   <img src = "project_screenshot.jpg" alt="Screenshot do projeto">
+   <img src = "project_screeshot.jpg" alt="Screenshot do projeto">
