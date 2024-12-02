@@ -107,6 +107,20 @@ function shellSort(arr) {
     return sorted;
 }
 
+function insertionSort(arr) {
+    const sorted = [...arr];
+    for (let i = 1; i < sorted.length; i++) {
+        let key = sorted[i];
+        let j = i - 1;
+        while (j >= 0 && sorted[j] > key) {
+            sorted[j + 1] = sorted[j];
+            j--;
+        }
+        sorted[j + 1] = key;
+    }
+    return sorted;
+}
+
 function sortList() {
     const algorithms = [
         { name: 'Bubble Sort', func: bubbleSort, target: 'bubbleSortResult' },
@@ -114,19 +128,37 @@ function sortList() {
         { name: 'Merge Sort', func: mergeSort, target: 'mergeSortResult' },
         { name: 'Quick Sort', func: quickSort, target: 'quickSortResult' },
         { name: 'Shell Sort', func: shellSort, target: 'shellSortResult' },
+        { name: 'Insertion Sort', func: insertionSort, target: 'insertionSortResult' },
     ];
 
-    algorithms.forEach(algo => {
-        const start = performance.now();
-        const sorted = algo.func(numbers);
-        const end = performance.now();
+    // Número de iterações para cálculo médio
+    const iterations = 100;
 
+    algorithms.forEach(algo => {
+        let totalTimeNs = 0;
+
+        for (let i = 0; i < iterations; i++) {
+            const arrayCopy = [...numbers]; // Evita mutação do array
+            const start = performance.now(); // Tempo inicial (ms)
+            algo.func(arrayCopy);
+            const end = performance.now(); // Tempo final (ms)
+
+            // Converte o tempo para nanosegundos e soma
+            totalTimeNs += (end - start) * 1e6; // ms para ns
+        }
+
+        // Calcula o tempo médio em microssegundos com precisão de nanosegundos
+        const averageTimeUs = totalTimeNs / (iterations * 1e3); // Nano para micro
+        const microseconds = Math.floor(averageTimeUs); // Parte inteira em µs
+        const nanoseconds = Math.round((averageTimeUs - microseconds) * 1e3); // Parte decimal em ns
+
+        // Atualiza o DOM com os resultados
         const targetDiv = document.getElementById(algo.target);
         targetDiv.innerHTML = `
             <h2>${algo.name}</h2>
             <br>
-            <div class="sorted-list">${sorted.join(', ')}</div>
-            <div class="time">Tempo: ${((end - start) * 1000).toFixed(2)} µs</div>
+            <div class="sorted-list">${algo.func([...numbers]).join(', ')}</div>
+            <div class="time">Tempo médio: ${microseconds + (nanoseconds/1000)} µs</div>
             <pre class="code">${algo.func.toString()}</pre>
         `;
     });
