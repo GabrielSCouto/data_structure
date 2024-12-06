@@ -8,7 +8,7 @@
 
 1. Clone o projeto em sua pasta de projetos
 
-        git@github.com:seu_usuario/data_structure.git
+        git@github.com:GabrielSCouto/data_structure.git
 
 
 2. Abra a pasta clonada com o **VS Code** ou IDE de preferência
